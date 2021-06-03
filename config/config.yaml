@@ -2,6 +2,27 @@ imports:
     - { resource: services.yaml }
     - { resource: 'local/' }
 
+parameters:
+#    elasticsearch:
+#        hosts: '%env(csv:ELASTICSEARCH_HOSTS)%'
+#        shards: '%env(int:ELASTICSEARCH_SHARDS)%'
+#        replicas: '%env(int:ELASTICSEARCH_REPLICAS)%'
+#        index_tags: '%env(ELASTICSEARCH_INDEX_TAGS)%'
+
+webpack_encore:
+    # The path where Encore is building the assets.
+    # This should match Encore.setOutputPath() in webpack.config.js.
+    output_path: '%kernel.project_dir%/public/build'
+    # If multiple builds are defined (as shown below), you can disable the default build:
+    # output_path: false
+
+    # if using Encore.enableIntegrityHashes() specify the crossorigin attribute value (default: false, or use 'anonymous' or 'use-credentials')
+    # crossorigin: 'anonymous'
+
+    # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes).
+    # To enable caching for the production environment, creating a webpack_encore.yaml in the config/packages/prod directory with this value set to true
+    # Available in version 1.2
+    #cache: false
 
 pimcore:
 
@@ -45,7 +66,8 @@ pimcore:
 
 
 #### CUSTOM OBJECT DATA TYPES
-#    objects:
+    objects:
+        tree_paging_limit: 100
 #        class_definitions:
 #            data:
 #                map:
@@ -68,8 +90,8 @@ pimcore:
 
 #### SYSTEM SETTINGS
 
-#    general:
-#        timezone: Europe/Berlin
+    general:
+        timezone: Europe/Berlin
 #        path_variable: ''
 #        instance_identifier: ''
 #    services:
@@ -78,9 +100,9 @@ pimcore:
 #            email: 73893596983@developer.gserviceaccount.com
 #            simple_api_key: AIzaSyCo9Wj49hYJWW2WgOju4iMYNTvdcBxmyQ8
 #            browser_api_key: AIzaSyBJX16kWAmUVEz1c1amzp2iKqAfumbcoQQ
-#    full_page_cache:
-#        enabled: false
-#        lifetime: null
+    full_page_cache:
+        enabled: false
+        lifetime: 600
 #        exclude_cookie: ''
 #        exclude_patterns: ''
 #    httpclient:
@@ -96,6 +118,9 @@ pimcore:
 #        return:
 #            name: ''
 #            email: ''
+#        debug:
+#            email_addresses: ''
+
 #    newsletter:
 #        use_specific: false # set true to use the following options for newsletter delivery
 #        sender:

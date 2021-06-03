@@ -34,5 +34,7 @@ class Kernel extends PimcoreKernel
         if (class_exists('\Pimcore\Bundle\LegacyBundle\PimcoreLegacyBundle')) {
             $collection->addBundle(new \Pimcore\Bundle\LegacyBundle\PimcoreLegacyBundle);
         }
+
+        $collection->addBundle(new \Symfony\WebpackEncoreBundle\WebpackEncoreBundle());
     }
 }

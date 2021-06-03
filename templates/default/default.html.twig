@@ -1,127 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="{{ app.request.locale }}">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Example</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/todo.svg" type="image/svg+xml"/><!-- todo: add these two -->
+    <link rel="icon" href="/static/img/todo.svg" type="image/svg+xml"/>
 
-<body>
+    {% apply spaceless %}
+        {# add global stylesheets and scripts outside of any blocsk to add them to the helpers before any others assets are added #}
+        {# we use the view helper to have cache buster functionality #}
 
-<style type="text/css">
-    body {
-        padding:0;
-        margin: 0;
-        font-family: "Lucida Sans Unicode", Arial;
-        font-size: 14px;
-    }
+        {% if document.getTitle() is not empty %}
+            {% do pimcore_head_title().set(document.getTitle()) %}
+        {% endif %}
 
-    #site {
-        margin: 0 auto;
-        width: 600px;
-        padding: 30px 0 0 0;
-        color:#65615E;
-    }
+        {% if document.getDescription() is not empty %}
+            {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+        {% endif %}
 
-    h1, h2, h3 {
-        font-size: 18px;
-        padding: 0 0 5px 0;
-        border-bottom: 1px solid #001428;
-        margin-bottom: 5px;
-    }
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
-    h3 {
-        font-size: 14px;
-        padding: 15px 0 5px 0;
-        margin-bottom: 5px;
-        border-color: #cccccc;
-    }
+    {% endapply %}
 
-    img {
-        border: 0;
-    }
-
-    p {
-        padding: 0 0 5px 0;
-    }
-
-    a {
-        color: #000;
-    }
-
-    #logo {
-        text-align: center;
-        padding: 50px 0;
-    }
-
-    #logo hr {
-        display: block;
-        height: 1px;
-        overflow: hidden;
-        background: #BBB;
-        border: 0;
-        padding:0;
-        margin:30px 0 20px 0;
-    }
-
-    .claim {
-        text-transform: uppercase;
-        color:#BBB;
-    }
-
-    #site ul {
-        padding: 10px 0 10px 20px;
-        list-style: circle;
-    }
-
-    .buttons {
-        margin-bottom: 100px;
-        text-align: center;
-    }
-
-    .buttons a {
-        display: inline-block;
-        background: #6428b4;
-        color:#fff;
-        padding: 5px 10px;
-        margin-right: 10px;
-        width:40%;
-        border-radius: 2px;
-        text-decoration: none;
-    }
-
-    .buttons a:hover {
-        background: #1C8BC1;
-    }
-
-    .buttons a:last-child {
-        margin: 0;
-    }
-
-</style>
-
-
-<div id="site">
-    <div id="logo">
-        <a href="http://www.pimcore.com/"><img src="/bundles/pimcoreadmin/img/logo-claim-gray.svg" style="width: 400px;" /></a>
-        <hr />
-    </div>
-
-    {% if editmode %}
-        <div class="buttons">
-            <a target="_blank" href="https://pimcore.com/docs/6.x/Development_Documentation/Getting_Started/Installation.html">Install Sample Data / Boilerplate</a>
-            <a target="_blank" href="https://pimcore.com/docs/6.x/Development_Documentation/Getting_Started/index.html">Getting Started</a>
-        </div>
-
-        <div class="info">
-            <h2>Where can I edit some pages?</h2>
-            <p>
-                Well, it seems that you're using the professional distribution of pimcore which doesn't include any
-                templates / themes or contents, it's designed to start a project from scratch. If you need a jump start
-                please consider using our sample data / boilerplate package which includes everything you need to get started.
-            </p>
-        </div>
+    {# we're using the deferred extension here to make sure this block is rendered after all helper calls #}
+    {% block layout_head_meta deferred %}
+    {{ pimcore_head_title() }}
+    {{ pimcore_head_meta() }}
+    {% if document.getTitle() is not empty %}
+        <meta property="og:title" content="{{ document.getTitle() }}">
     {% endif %}
-</div>
+    {% if document.getDescription() is not empty %}
+        <meta property="og:description" content="{{ document.getDescription()|e('html_attr') }}">
+    {% endif %}
+    <meta property="og:locale" content="{{ app.request.locale }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.pathInfo }}">
+    {% if document.getProperty('og_imageShare') is not empty %}
+        <meta property="og:image" content="{{ document.getProperty('og_imageShare') }}">{% endif %}
+    <link rel="canonical" href="{{ app.request.pathInfo }}">
+    {% endblock %}
 
+    {% block head_stylesheets deferred %}{{ pimcore_head_link() }}{% endblock %}
+
+    {% block additionalHeaders %}{% endblock %}
+
+    <script>
+        document.cookietext = {
+            "message": "{{ 'cookieConsent_message'|trans }}",
+            "link": "{{ 'cookieConsent_linkText'|trans }}",
+            "dismiss": "{{ 'cookieConsent_button'|trans }}",
+            "href": "{{ 'cookieConsent_linkTarget'|trans }}",
+            "target": "_self",
+        };
+        document.cookeButtonColor = "{{ document.getProperty('cookiebutton_color') ?? '#7a237b' }}";
+    </script>
+</head>
+{% block bodyTag %}
+<body>
+{% endblock %}
+<header>
+    {% include 'partials/header.html.twig' %}
+    {% include 'partials/navigation.html.twig' %}
+</header>
+
+<main>
+    {% block content %}
+        <div id="areablocks">
+            {% set allowedBricks = [
+
+            ] %}
+            {{ pimcore_areablock("mainContent", {
+                'allowed': allowedBricks,
+            }) }}
+        </div>
+    {% endblock %}
+    {% block additionalContent %}{% endblock %}
+</main>
+
+<footer>
+    {% include 'partials/footer.html.twig' %}
+</footer>
+
+{# output scripts added before #}
+{% block headscripts deferred %}
+{{ pimcore_head_script() }}
+{% endblock %}
+
+{% block inlinescripts deferred %}
+{{ pimcore_inline_script() }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 </body>
 </html>

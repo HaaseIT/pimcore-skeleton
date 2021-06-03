@@ -1,5 +1,5 @@
 parameters:
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: ExY7QJFPfgdVQX/eFGJ0uHwJykhf5mn5pQHcjGW+6bY=
 
     # customize the full path to external executables
     # normally they are auto-detected by `which program` or auto-discovered in the configured path in
@@ -59,7 +59,19 @@ services:
         resource: '../src/Command/*'
         tags: [ 'console.command' ]
 
+    App\EventSubscriber\:
+        resource: '../src/EventSubscriber/*'
 
+    App\Service\:
+        resource: '../src/Service/*'
+
+    # Example custom templating helper
+    App\Twig\Extension\MiscExtension:
+        # templating helpers need to be public as they
+        # are fetched from the container on demand
+        public: true
+        tags:
+            - { name: twig.extension }
 
     # Example custom templating helper
     # App\Templating\Helper\Example:

@@ -7,7 +7,11 @@
     "sort-packages": true
   },
   "require": {
-    "pimcore/pimcore": "^10.0"
+    "php": ">=8.0",
+    "composer-runtime-api": "^2.0",
+    "symfony/webpack-encore-bundle": "^1.11",
+    "pimcore/pimcore": "^10.0",
+    "ext-dom": "*"
   },
   "require-dev": {
     "cache/integration-tests": "^0.17.0",
