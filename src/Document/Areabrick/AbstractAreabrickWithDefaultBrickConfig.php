@@ -9,7 +9,7 @@ use Pimcore\Extension\Document\Areabrick\EditableDialogBoxInterface;
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Editable\Area\Info;
 
-class AbstractAreabrickWithDefaultBrickConfig extends AbstractAreabrick implements EditableDialogBoxInterface
+abstract class AbstractAreabrickWithDefaultBrickConfig extends AbstractAreabrick implements EditableDialogBoxInterface
 {
     public function getEditableDialogBoxConfiguration(
         Document\Editable $area,
