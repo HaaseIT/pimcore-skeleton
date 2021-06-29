@@ -28,6 +28,7 @@ abstract class AbstractAreabrickWithDefaultBrickConfig extends AbstractAreabrick
                     'config' => [
                         'store' => [
                             ['regular', 'regulär'],
+                            ['more', 'mehr'],
                             ['none', 'keiner'],
                         ],
                         'defaultValue' => 'regular',
@@ -41,6 +42,7 @@ abstract class AbstractAreabrickWithDefaultBrickConfig extends AbstractAreabrick
                     'config' => [
                         'store' => [
                             ['regular', 'regulär'],
+                            ['more', 'mehr'],
                             ['none', 'keiner'],
                         ],
                         'defaultValue' => 'regular',
