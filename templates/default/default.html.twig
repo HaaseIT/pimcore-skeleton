@@ -4,8 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/static/img/todo.svg" type="image/svg+xml"/><!-- todo: add these two -->
+    {# TODO
+    <link rel="shortcut icon" href="/static/img/todo.svg" type="image/svg+xml"/>
     <link rel="icon" href="/static/img/todo.svg" type="image/svg+xml"/>
+    #}
 
     {% apply spaceless %}
         {# add global stylesheets and scripts outside of any blocsk to add them to the helpers before any others assets are added #}
@@ -37,16 +39,20 @@
     {% endif %}
     <meta property="og:locale" content="{{ app.request.locale }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ app.request.pathInfo }}">
     {% if document.getProperty('og_imageShare') is not empty %}
-        <meta property="og:image" content="{{ document.getProperty('og_imageShare') }}">{% endif %}
+        <meta property="og:image" content="{{ document.getProperty('og_imageShare') }}">
+    {% endif %}
+    {# TODO: add protocol and canonical domain
+    <meta property="og:url" content="{{ app.request.pathInfo }}">
     <link rel="canonical" href="{{ app.request.pathInfo }}">
+    #}
     {% endblock %}
 
     {% block head_stylesheets deferred %}{{ pimcore_head_link() }}{% endblock %}
 
     {% block additionalHeaders %}{% endblock %}
 
+    {# TODO: enable if cookieconsent required
     <script>
         document.cookietext = {
             "message": "{{ 'cookieConsent_message'|trans }}",
@@ -57,6 +63,7 @@
         };
         document.cookeButtonColor = "{{ document.getProperty('cookiebutton_color') ?? '#7a237b' }}";
     </script>
+    #}
 </head>
 {% block bodyTag %}
 <body>
