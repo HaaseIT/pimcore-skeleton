@@ -28,7 +28,9 @@ services:
 
     php-fpm:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:PHP8.0-fpm
+        build:
+            context: .
+            dockerfile: /.docker/php.Dockerfile
         environment:
             - COMPOSER_HOME=/var/www/html
         depends_on:
@@ -58,7 +60,18 @@ services:
             - .:/var/www/html:cached
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
+#  elasticsearch:
+#      image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+#      environment:
+#          discovery.type: single-node
+#          ES_JAVA_OPTS: -Xms512m -Xmx512m
+#      ports:
+#          - 9200:9200
+#          - 9300:9300
+#      volumes:
+#          - elasticsearch:/usr/share/elasticsearch/data
 
 volumes:
     pimcore-demo-database:
     pimcore-tmp-storage:
+#    elasticsearch:
