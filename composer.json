@@ -11,6 +11,9 @@
     "php": ">=8.0",
     "composer-runtime-api": "^2.0",
     "symfony/webpack-encore-bundle": "^1.11",
+    "symfony/rate-limiter": "^5.3",
+    "nelmio/cors-bundle": "^2.1",
+    "nelmio/security-bundle": "^2.10",
     "pimcore/pimcore": "^10.0",
     "ext-dom": "*"
   },

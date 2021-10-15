@@ -35,6 +35,8 @@ class Kernel extends PimcoreKernel
             $collection->addBundle(new \Pimcore\Bundle\LegacyBundle\PimcoreLegacyBundle);
         }
 
+        $collection->addBundle(new NelmioCorsBundle());
+        $collection->addBundle(new NelmioSecurityBundle());
         $collection->addBundle(new \Symfony\WebpackEncoreBundle\WebpackEncoreBundle());
     }
 }
