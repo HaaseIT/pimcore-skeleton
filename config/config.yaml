@@ -144,6 +144,16 @@ pimcore:
 
 #### SYMFONY OVERRIDES
 framework:
+    rate_limiter:
+        email_form:
+            # use 'sliding_window' if you prefer that policy
+            policy: 'fixed_window'
+            limit: 10
+            interval: '1 minute'
+#        authenticated_api:
+#            policy: 'token_bucket'
+#            limit: 5000
+#            rate: { interval: '15 minutes', amount: 500 }
 
 #### DEFINE LOCATION OF MANIFEST WHEN WORKING WITH SYMFONY ENCORE
 #    assets:
