@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="{{ app.request.locale }}">
 <head>
-    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {# TODO
@@ -67,17 +66,16 @@
 </head>
 {% block bodyTag %}
 <body>
+
 {% endblock %}
 <header>
     {% include 'partials/header.html.twig' %}
     {% include 'partials/navigation.html.twig' %}
 </header>
-
 <main>
     {% block content %}
         <div id="areablocks">
             {% set allowedBricks = [
-
             ] %}
             {{ pimcore_areablock("mainContent", {
                 'allowed': allowedBricks,
