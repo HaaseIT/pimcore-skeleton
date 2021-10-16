@@ -1,11 +1,11 @@
 nelmio_security:
     # signs/verifies all cookies
-    signed_cookie:
-        names: ['*']
+    #    signed_cookie:
+    #        names: ['*']
     # prevents framing of the entire site
     clickjacking:
         paths:
-            '^/.*': DENY
+            '^/.*': sameorigin
     # prevents redirections outside the website's domain
     external_redirects:
         abort: true
@@ -23,9 +23,12 @@ nelmio_security:
             default-src:
                 - 'self'
                 - 'data:'
+                - 'unsafe-inline'
+            frame-src: [ 'https://www.youtube.com' ]
             script-src:
                 - 'self'
                 - 'unsafe-inline'
+                - 'unsafe-eval'
             style-src:
                 - 'self'
                 - 'unsafe-inline'
@@ -34,7 +37,7 @@ nelmio_security:
 
     # disables content type sniffing for script resources
     content_type:
-        nosniff: true
+    #        nosniff: true
 
     # forces Microsoft's XSS-Protection with
     # its block mode
