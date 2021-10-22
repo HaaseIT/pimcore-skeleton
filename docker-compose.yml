@@ -60,15 +60,15 @@ services:
             - .:/var/www/html:cached
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
-#  elasticsearch:
-#      image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
-#      environment:
-#          discovery.type: single-node
-#          ES_JAVA_OPTS: -Xms512m -Xmx512m
-#      ports:
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+#        environment:
+#          - discovery.type="single-node"
+#          - ES_JAVA_OPTS="-Xms512m -Xmx512m"
+#        ports:
 #          - 9200:9200
 #          - 9300:9300
-#      volumes:
+#        volumes:
 #          - elasticsearch:/usr/share/elasticsearch/data
 
 volumes:
