@@ -54,3 +54,4 @@ nbproject
 /public/build/
 /node_modules/
 /yarn-error.log
+/cache
