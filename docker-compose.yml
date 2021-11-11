@@ -32,7 +32,7 @@ services:
             context: .
             dockerfile: ./.docker/php.Dockerfile
         environment:
-            - COMPOSER_HOME=/var/www/html
+            COMPOSER_HOME: /var/www/html
         depends_on:
             - db
         volumes:
@@ -48,8 +48,8 @@ services:
             - .:/var/www/html:cached
             - pimcore-tmp-storage:/tmp:cached
         environment:
-            - PHP_IDE_CONFIG="serverName=localhost"
-            - COMPOSER_HOME=/var/www/html
+            PHP_IDE_CONFIG: serverName=localhost
+            COMPOSER_HOME: /var/www/html
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid

@@ -16,12 +16,6 @@
 /config/local/*
 !config/local/.gitkeep
 
-# pimcore legacy (remove this for your own development)
-!/legacy
-/legacy/*
-!legacy/.gitkeep
-!legacy/bundle
-
 /var/*
 !/var/.gitkeep
 !/var/classes/
@@ -52,10 +46,7 @@
 # NetBeans
 nbproject
 
-# keep legacy paths ignored for easier migration
-/plugins/
-/tools/
-/website/
+# temp
 .temp
 
 
