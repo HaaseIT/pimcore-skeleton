@@ -52,16 +52,15 @@
     {% block additionalHeaders %}{% endblock %}
 
     {# TODO: enable if cookieconsent required
-    <script>
-        document.cookietext = {
-            "message": "{{ 'cookieConsent_message'|trans }}",
-            "link": "{{ 'cookieConsent_linkText'|trans }}",
-            "dismiss": "{{ 'cookieConsent_button'|trans }}",
-            "href": "{{ 'cookieConsent_linkTarget'|trans }}",
-            "target": "_self",
-        };
-        document.cookeButtonColor = "{{ document.getProperty('cookiebutton_color') ?? '#7a237b' }}";
-    </script>
+    <meta property="proprietary:configuration" id="pageConfiguration"
+        data-cc_message="{{ 'cookieConsent_message'|trans }}"
+        data-cc_link="{{ 'cookieConsent_linkText'|trans }}"
+        data-cc_dismiss="{{ 'cookieConsent_button'|trans }}"
+        data-cc_href="{{ 'cookieConsent_linkTarget'|trans }}"
+        data-cc_allow="{{ 'cookieConsent_allow'|trans }}"
+        data-cc_deny="{{ 'cookieConsent_deny'|trans }}"
+        data-cc_policy="{{ 'cookieConsent_policy'|trans }}"
+    >
     #}
 </head>
 {% block bodyTag %}
