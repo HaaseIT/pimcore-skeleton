@@ -50,6 +50,9 @@ services:
         environment:
             PHP_IDE_CONFIG: serverName=localhost
             COMPOSER_HOME: /var/www/html
+            XDEBUG_CONFIG: client_host=host.docker.internal
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid
