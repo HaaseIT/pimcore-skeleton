@@ -41,7 +41,7 @@ services:
 
     php-fpm-debug:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:PHP8.0-fpm-debug
+        image: pimcore/pimcore:PHP8.1-fpm-debug
         depends_on:
             - db
         volumes:
@@ -53,7 +53,7 @@ services:
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:supervisord
+        image: pimcore/pimcore:PHP8.1-supervisord
         depends_on:
             - db
         volumes:
