@@ -29,8 +29,8 @@ services:
     php-fpm:
         #user: '1000:1000' # set to your uid:gid
         build:
-            context: .
-            dockerfile: ./.docker/php.Dockerfile
+            context: ./.docker
+            dockerfile: php.Dockerfile
         environment:
             COMPOSER_HOME: /var/www/html
         depends_on:
