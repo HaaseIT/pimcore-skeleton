@@ -27,14 +27,19 @@ services:
 
     php:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.1-debug-latest
+        build:
+            context: ./.docker
+            dockerfile: php.Dockerfile
         environment:
-            COMPOSER_HOME: /var/www/html
             PHP_IDE_CONFIG: serverName=localhost
+            COMPOSER_HOME: /var/www/html
+            XDEBUG_CONFIG: client_host=host.docker.internal
         depends_on:
             - db
         volumes:
             - .:/var/www/html
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid
@@ -45,5 +50,17 @@ services:
             - .:/var/www/html
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+#        environment:
+#          discovery.type: single-node
+#          ES_JAVA_OPTS: -Xms512m -Xmx512m
+#        ports:
+#          - 9200:9200
+#          - 9300:9300
+#        volumes:
+#          - elasticsearch:/usr/share/elasticsearch/data
+
 volumes:
     pimcore-database:
+#    elasticsearch:

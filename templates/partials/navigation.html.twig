@@ -1,0 +1,94 @@
+{% apply spaceless %}
+    {# get root node if there is no document defined (for pages which are routed directly through static route) #}
+    {% if not document is defined or not document %}
+        {% set document = pimcore_document(1) %}
+    {% endif %}
+
+    {% set navStartNode = document.getProperty('navigationRoot') %}
+    {% if not navStartNode is instanceof('\\Pimcore\\Model\\Document') %}
+        {% set navStartNode = pimcore_document(1) %}
+    {% endif %}
+
+    {% set params = {
+        root: navStartNode,
+        htmlMenuPrefix: '',
+        active: document,
+        cache: false,
+        maxDepth: 2,
+    } %}
+    {% set mainNavigation = app_build_nav(params) %}
+{% endapply %}
+<nav id="navigation" class="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-md-6 col-lg-5 col-xl-4 col-xxl-3" id="navigationMain">
+
+                <ul>
+                    <li>
+                        <a href="/"
+                           class="mainNavigation">{{ 'navigation_home'|trans }}</a>
+                    </li>
+                    {% set subNavigations = [] %}
+                    {% for page in mainNavigation %}
+                        {% if page.isVisible() %}
+                            {% if page.getDocumentType() == 'page' and page.hasChildren() %}
+                                <li class="hasChildren">
+                                    <a href="{{ page.getHref() }}" class="{{ page.getHref() != '/' and page.isActive(true) ? ' active' : '' }} mainNavigation hasChildren"
+                                       role="button"
+                                       data-child="{{ page.getId() }}"
+                                    >{{ page.getLabel() }}</a>
+                                    {% apply spaceless %}
+
+                                        {% set currentSubNavigationChildren = [] %}
+                                        {% for child in page.getPages() %}
+                                            {% if child.isVisible() %}
+                                                {% set currentSubNavigationChild = {
+                                                    'href': child.getHref(),
+                                                    'label': child.getLabel(),
+                                                    'active': child.isActive(),
+                                                } %}
+                                                {% set currentSubNavigationChildren = currentSubNavigationChildren|merge([currentSubNavigationChild]) %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% set currentSubNavigation = {
+                                            'parentId': page.getId(),
+                                            'parentHref': page.getHref(),
+                                            'title': page.getLabel(),
+                                            'children': currentSubNavigationChildren,
+                                        } %}
+
+                                        {% set subNavigations = subNavigations|merge([currentSubNavigation]) %}
+
+                                    {% endapply %}
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ page.getHref() }}"{% if page.getHref()|slice(0, 8) == 'https://'  %} target="_blank"{% endif %}
+                                       class="{{ page.getHref() != '/' and page.isActive(true) ? ' active' : '' }} mainNavigation">{{ page.getLabel() }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div class="col-6 col-md-6 col-lg-7 col-xl-8 col-xxl-9" id="navigationSub">
+                <div id="navigationSubBackButton" class="d-md-none">
+                    <a href="#" id="navigationSubBackButtonA">&lt; {{ 'misc_back'|trans }}</a>
+                </div>
+
+                {% if subNavigations is not empty %}
+                    {% for currentSubNavigation in subNavigations %}
+                        <ul id="subNavigationFor{{ currentSubNavigation.parentId }}" class="subNavigation d-none">
+                            <li class="title"><a href="{{ currentSubNavigation.parentHref }}">{{ currentSubNavigation.title }}</a></li>
+                            {% for child in currentSubNavigation.children %}
+                                <li><a href="{{ child.href }}" class="{{ child.active ? 'active' }}">{{ child.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

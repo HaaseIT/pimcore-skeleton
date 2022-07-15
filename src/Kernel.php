@@ -17,6 +17,8 @@ namespace App;
 
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
+use Nelmio\CorsBundle\NelmioCorsBundle;
+use Nelmio\SecurityBundle\NelmioSecurityBundle;
 
 class Kernel extends PimcoreKernel
 {
@@ -31,5 +33,9 @@ class Kernel extends PimcoreKernel
         if (class_exists('\\AppBundle\\AppBundle')) {
             $collection->addBundle(new \AppBundle\AppBundle);
         }
+
+        $collection->addBundle(new NelmioCorsBundle());
+        $collection->addBundle(new NelmioSecurityBundle());
+        $collection->addBundle(new \Symfony\WebpackEncoreBundle\WebpackEncoreBundle());
     }
 }
