@@ -12,10 +12,17 @@
   },
   "prefer-stable": true,
   "require": {
+    "php": ">=8.1",
+    "ext-dom": "*",
+    "composer-runtime-api": "^2.0",
     "pimcore/pimcore": "^11.0",
     "pimcore/admin-ui-classic-bundle": "^1.0",
     "symfony/runtime": "^6.2",
-    "symfony/dotenv": "^6.2"
+    "symfony/dotenv": "^6.2",
+    "symfony/webpack-encore-bundle": "^1.15",
+    "symfony/rate-limiter": "^5.3",
+    "nelmio/cors-bundle": "^2.1",
+    "nelmio/security-bundle": "^2.10"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",

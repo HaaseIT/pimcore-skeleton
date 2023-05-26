@@ -48,3 +48,10 @@ nbproject
 
 # temp
 .temp
+
+
+# My own stuff
+/public/build/
+/node_modules/
+/yarn-error.log
+/cache

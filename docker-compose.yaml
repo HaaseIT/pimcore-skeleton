@@ -36,10 +36,13 @@ services:
 
     php:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.2-debug-latest
+        build:
+            context: ./.docker
+            dockerfile: php.Dockerfile
         environment:
             COMPOSER_HOME: /var/www/html
             PHP_IDE_CONFIG: serverName=localhost
+            XDEBUG_CONFIG: client_host=host.docker.internal
             # Feed installer configuration via ENV variables.
             # See: https://pimcore.com/docs/pimcore/current/Development_Documentation/Getting_Started/Advanced_Installation_Topics.html#page_Advanced-Installation-Topics
             PIMCORE_INSTALL_MYSQL_USERNAME: pimcore
@@ -52,6 +55,8 @@ services:
                 condition: service_healthy
         volumes:
             - .:/var/www/html
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid
@@ -88,8 +93,20 @@ services:
             - pimcore-test-var:/var/www/html/var
             - pimcore-test-public-var:/var/www/html/public/var
 
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+#        environment:
+#          discovery.type: single-node
+#          ES_JAVA_OPTS: -Xms512m -Xmx512m
+#        ports:
+#          - 9200:9200
+#          - 9300:9300
+#        volumes:
+#          - elasticsearch:/usr/share/elasticsearch/data
+
 volumes:
     pimcore-database:
     pimcore-test-database:
     pimcore-test-var:
     pimcore-test-public-var:
+#    elasticsearch:

@@ -1,0 +1,37 @@
+{% macro openingATag(linkEditable, additionalClasses) %}{% apply spaceless %}
+{% set target = '' %}
+{% if linkEditable.getTarget() is not empty %}
+    {% set target = ' target="' ~ linkEditable.getTarget() ~ '"' %}
+{% endif %}
+{% set title = '' %}
+{% if linkEditable.getTitle() is not empty %}
+    {% set title = ' title="' ~ linkEditable.getTitle() ~ '"' %}
+{% endif %}
+{% set accessKey = '' %}
+{% if linkEditable.getAccessKey() is not empty %}
+    {% set accessKey = ' accesskey="' ~ linkEditable.getAccessKey() ~ '"' %}
+{% endif %}
+{% set rel = '' %}
+{% if linkEditable.getRel() is not empty %}
+    {% set rel = ' rel="' ~ linkEditable.getRel() ~ '"' %}
+{% endif %}
+{% set tabIndex = '' %}
+{% if linkEditable.getTabindex() is not empty %}
+    {% set tabIndex = ' tabindex="' ~ linkEditable.getTabindex() ~ '"' %}
+{% endif %}
+{% set classes = '' %}
+{% if additionalClasses is not empty %}
+    {% set classes = additionalClasses %}
+{% endif %}
+{% if linkEditable.getClass() is not empty %}
+    {% if classes != '' %}
+        {% set classes = classes ~ ' ' %}
+    {% endif %}
+    {% set classes = classes ~ linkEditable.getClass() %}
+{% endif %}
+{% set classAttribute = '' %}
+{% if classes != '' %}
+    {% set classAttribute = ' class="' ~ classes ~ '"' %}
+{% endif %}
+<a href="{{ linkEditable.getHref() }}"{{ target|raw }}{{ title|raw }}{{ accessKey|raw }}{{ rel|raw }}{{ tabIndex|raw }}{{ classAttribute|raw }}>
+{% endapply %}{% endmacro %}

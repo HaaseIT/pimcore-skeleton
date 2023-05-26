@@ -1,0 +1,40 @@
+@import "bootstrap/scss/bootstrap";
+
+@import "variables";
+
+#breakpoint-indicator {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 10000;
+    background-color: orange;
+    color: black;
+    padding: 2px 8px;
+    font-weight: bold;
+}
+
+.brickMarginTop-regular {
+    margin-top: 1.5rem;
+}
+.brickMarginBottom-regular {
+    margin-bottom: 1.5rem;
+}
+.brickMarginTop-more {
+    margin-top: 3rem;
+}
+.brickMarginBottom-more {
+    margin-bottom: 3rem;
+}
+
+.pimcore_block_entry {
+    width: 100%;
+    .pimcore_editable_input {
+        min-height: 1em;
+    }
+    .pimcore_editable_video {
+        height: 100%;
+    }
+    .pimcore_editable_block {
+        width: 100%;
+    }
+}
