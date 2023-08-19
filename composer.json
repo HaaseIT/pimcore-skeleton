@@ -21,7 +21,7 @@
     "symfony/runtime": "^6.2",
     "symfony/dotenv": "^6.2",
     "symfony/webpack-encore-bundle": "^1.15",
-    "symfony/rate-limiter": "^5.3",
+    "symfony/rate-limiter": "^6.2",
     "nelmio/cors-bundle": "^2.1",
     "nelmio/security-bundle": "^2.10"
   },
