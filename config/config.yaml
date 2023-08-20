@@ -101,9 +101,9 @@ pimcore:
         timezone: Europe/Berlin
 #        path_variable: ''
 #        instance_identifier: ''
-#    full_page_cache:
-#        enabled: false
-#        lifetime: 600
+    full_page_cache:
+        enabled: false
+        lifetime: 600
 #        exclude_cookie: ''
 #        exclude_patterns: ''
 #    httpclient:
