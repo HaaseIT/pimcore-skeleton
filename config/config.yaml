@@ -32,6 +32,41 @@ doctrine_migrations:
         'App\Migrations': '%kernel.project_dir%/src/Migrations'
 
 pimcore:
+    config_location:
+        image_thumbnails:
+            write_target:
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/image-thumbnails'
+        video_thumbnails:
+            write_target:
+                type: 'disabled'
+        document_types:
+            write_target:
+                type: 'disabled'
+        predefined_properties:
+            write_target:
+                type: 'settings-store'
+        predefined_asset_metadata:
+            write_target:
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/predefined_asset_metadata'
+        perspectives:
+            write_target:
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/perspectives'
+        custom_views:
+            write_target:
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/custom_views'
+        object_custom_layouts:
+            write_target:
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/object_custom_layouts'
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
