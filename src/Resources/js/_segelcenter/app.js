@@ -1,13 +1,10 @@
-require('../scss/app.scss');
+require('../../scss/_segelcenter/app.scss');
 
 require('bootstrap');
 require('@popperjs/core');
 // require("cookieconsent");
 
 //const elementConfiguration = document.getElementById("pageConfiguration");
-
-const xhrDONE = 4; // readyState 4 means the request is done.
-const xhrOK = 200; // status 200 is a successful return.
 
 // const gsap = require("gsap/all");
 
