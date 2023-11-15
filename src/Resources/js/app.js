@@ -1,4 +1,4 @@
-require('../../scss/_segelcenter/app.scss');
+require('../scss/app.scss');
 
 require('bootstrap');
 require('@popperjs/core');
