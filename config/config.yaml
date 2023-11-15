@@ -31,6 +31,23 @@ doctrine_migrations:
     migrations_paths:
         'App\Migrations': '%kernel.project_dir%/src/Migrations'
 
+pimcore_admin:
+    config_location:
+        admin_system_settings:
+            write_target:
+                type: 'symfony-config'
+            read_target:
+                type: 'symfony-config'
+            options:
+                directory: '%kernel.project_dir%/var/config/admin_system_settings'
+        system_settings:
+            write_target:
+                type: 'symfony-config'
+            read_target:
+                type: 'symfony-config'
+            options:
+                directory: '%kernel.project_dir%/var/config/system_settings'
+
 pimcore:
     config_location:
         image_thumbnails:

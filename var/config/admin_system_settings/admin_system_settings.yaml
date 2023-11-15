@@ -1,0 +1,4 @@
+pimcore_admin:
+    assets:
+        disable_tree_preview: false
+        hide_edit_image: true
