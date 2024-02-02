@@ -52,7 +52,7 @@
     "post-update-cmd": [
       "Pimcore\\Composer::postUpdate",
       "@pimcore-scripts",
-      "./bin/console doctrine:migrations:migrate"
+      "php ./bin/console doctrine:migrations:migrate"
     ],
     "pimcore-scripts": [
       "Pimcore\\Composer::clearCache",
