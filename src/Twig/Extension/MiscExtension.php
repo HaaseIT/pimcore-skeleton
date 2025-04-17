@@ -24,10 +24,8 @@ class MiscExtension extends AbstractExtension implements GlobalsInterface
      */
     private $documentService;
 
-    /**
-     * @param Navigation $navigationHelper
-     */
-    public function __construct(Navigation $navigationHelper, Service $documentService) {
+    public function __construct(Navigation $navigationHelper, Service $documentService)
+    {
         $this->navigationHelper = $navigationHelper;
         $this->documentService = $documentService;
     }
@@ -50,6 +48,7 @@ class MiscExtension extends AbstractExtension implements GlobalsInterface
     public function getUniqueCounter()
     {
         $this->uniqueCounter++;
+
         return $this->uniqueCounter;
     }
 
@@ -61,11 +60,7 @@ class MiscExtension extends AbstractExtension implements GlobalsInterface
      * view and just call render through the extension.
      *
      * @param mixed $params config array or active document (legacy mode)
-     * @param Document|null $navigationRootDocument
-     * @param string|null $htmlMenuPrefix
      * @param bool|string $cache
-     *
-     * @return Container
      *
      * @throws \Exception
      */
@@ -80,15 +75,15 @@ class MiscExtension extends AbstractExtension implements GlobalsInterface
         // using param configuration
         $container = $this->navigationHelper->build($params);
 
-//        $container->addPage(
-//            [
-//                'order' => -1,
-//                'uri' => '/',
-//                'label' => $homePage->getProperty('navigation_name'),
-//                'title' => $homePage->getProperty('navigation_title'),
-//                'active' => $params->getId() == $homePage->getId(),
-//            ]
-//        );
+        //        $container->addPage(
+        //            [
+        //                'order' => -1,
+        //                'uri' => '/',
+        //                'label' => $homePage->getProperty('navigation_name'),
+        //                'title' => $homePage->getProperty('navigation_title'),
+        //                'active' => $params->getId() == $homePage->getId(),
+        //            ]
+        //        );
 
         return $container;
     }

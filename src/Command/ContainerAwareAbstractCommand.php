@@ -14,6 +14,7 @@ abstract class ContainerAwareAbstractCommand extends AbstractCommand implements 
 
     /**
      * @return ContainerInterface
+     *
      * @throws \LogicException
      */
     protected function getContainer()
@@ -32,9 +33,6 @@ abstract class ContainerAwareAbstractCommand extends AbstractCommand implements 
         return $this->container;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
