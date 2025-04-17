@@ -16,6 +16,7 @@
 namespace App;
 
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
+use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
@@ -27,12 +28,15 @@ class Kernel extends PimcoreKernel
     /**
      * Adds bundles to register to the bundle collection. The collection is able
      * to handle priorities and environment specific bundles.
-     *
-     * @param BundleCollection $collection
      */
     public function registerBundlesToCollection(BundleCollection $collection): void
     {
-        $collection->addBundle(new PimcoreAdminBundle(), 60);
+        if (class_exists(PimcoreAdminBundle::class)) {
+            $collection->addBundle(new PimcoreAdminBundle(), 60);
+        }
+        if (class_exists(PimcoreQuillBundle::class)) {
+            $collection->addBundle(new PimcoreQuillBundle());
+        }
 
         $collection->addBundle(new NelmioCorsBundle());
         $collection->addBundle(new NelmioSecurityBundle());

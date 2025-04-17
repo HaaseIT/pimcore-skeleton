@@ -3,10 +3,15 @@ services:
         image: redis:alpine
         command: [ redis-server, --maxmemory 128mb, --maxmemory-policy volatile-lru, --save "" ]
 
+    rabbitmq:
+        image: rabbitmq:alpine
+        volumes:
+            - pimcore-rabbitmq:/var/lib/rabbitmq/
+
     db:
         image: mariadb:10.11
         working_dir: /application
-        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-per-table=1 ]
+        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1 ]
         volumes:
             - pimcore-database:/var/lib/mysql
         environment:
@@ -55,17 +60,21 @@ services:
                 condition: service_healthy
         volumes:
             - .:/var/www/html
+            - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
         extra_hosts:
             - "host.docker.internal:host-gateway"
 
     supervisord:
         #user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.2-supervisord-latest
+        image: pimcore/pimcore:php8.3-supervisord-latest
         depends_on:
+            rabbitmq:
+                condition: service_started
             db:
                 condition: service_healthy
         volumes:
             - .:/var/www/html
+            - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
     # The following two services are used for testing.
@@ -106,6 +115,7 @@ services:
 
 volumes:
     pimcore-database:
+    pimcore-rabbitmq:
     pimcore-test-database:
     pimcore-test-var:
     pimcore-test-public-var:

@@ -20,6 +20,7 @@ namespace App\EventSubscriber;
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
 use Pimcore\Bundle\InstallBundle\Event\BundleSetupEvent;
 use Pimcore\Bundle\InstallBundle\Event\InstallEvents;
+use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BundleSetupSubscriber implements EventSubscriberInterface
@@ -36,6 +37,19 @@ class BundleSetupSubscriber implements EventSubscriberInterface
     public function bundleSetup(BundleSetupEvent $event): void
     {
         // add required PimcoreAdminBundle
-        $event->addRequiredBundle('PimcoreAdminBundle', PimcoreAdminBundle::class, true);
+        if (class_exists(PimcoreAdminBundle::class)) {
+            $event->addRequiredBundle(
+                'PimcoreAdminBundle',
+                PimcoreAdminBundle::class,
+                true
+            );
+        }
+        if (class_exists(PimcoreQuillBundle::class)) {
+            $event->addRequiredBundle(
+                'PimcoreQuillBundle',
+                PimcoreQuillBundle::class,
+                true
+            );
+        }
     }
 }
