@@ -11,9 +11,11 @@
     }
   },
   "prefer-stable": true,
+  "minimum-stability": "dev",
   "require": {
+    "php": "~8.3.0 || ~8.4.0",
     "pimcore/pimcore": "*",
-    "pimcore/platform-version": "^2024.3",    
+    "pimcore/platform-version": "^2025.0",
     "pimcore/admin-ui-classic-bundle": "*",
     "symfony/amqp-messenger": "^6.2",
     "symfony/dotenv": "^6.2",

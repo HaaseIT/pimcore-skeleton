@@ -1,7 +1,7 @@
 {
   "name": "pimcore/skeleton",
   "type": "project",
-  "license": "GPL-3.0-or-later",
+  "license": "proprietary",
   "config": {
     "optimize-autoloader": true,
     "sort-packages": true,
@@ -11,17 +11,17 @@
     }
   },
   "prefer-stable": true,
+  "minimum-stability": "dev",
   "require": {
-    "ext-dom": "*",
-    "composer-runtime-api": "^2.0",
-    "pimcore/pimcore": "*",
-    "pimcore/platform-version": "^2024.4",
+    "php": "~8.3.0 || ~8.4.0",
+    "pimcore/pimcore": "^12.3",
+    "pimcore/platform-version": "2025.4",
     "pimcore/admin-ui-classic-bundle": "*",
     "pimcore/system-info-bundle": "^1.0",
     "pimcore/quill-bundle": "*",
-    "symfony/amqp-messenger": "^6.2",
-    "symfony/dotenv": "^6.2",
-    "symfony/runtime": "^6.2",
+    "symfony/amqp-messenger": "^6.2 || ^7.2",
+    "symfony/dotenv": "^6.2 || ^7.2",
+    "symfony/runtime": "^6.2 || ^7.3",
     "symfony/webpack-encore-bundle": "^1.15",
     "symfony/rate-limiter": "^6.2",
     "nelmio/cors-bundle": "^2.1",

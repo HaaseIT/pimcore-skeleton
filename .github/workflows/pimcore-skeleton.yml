@@ -13,6 +13,7 @@ on:
 
 jobs:
   test-pimcore-skeleton:
+    if: github.repository == 'pimcore/skeleton'
     runs-on: ubuntu-latest
     steps:
     # Check out the repo in a sub-dir to see if it can serve as
@@ -28,7 +29,7 @@ jobs:
         set -ex
         
         # Pull latest build of pimcore's image
-        docker pull docker.io/pimcore/pimcore:php8.2-latest
+        docker pull docker.io/pimcore/pimcore:php8.3-latest
 
     - name: Create project from skeleton in latest pimcore environment
       run: |
@@ -45,7 +46,7 @@ jobs:
           --volume=${{ github.workspace }}/:/test/ \
           --workdir=/test/ \
           --user=$(id -u):$(id -g) \
-          docker.io/pimcore/pimcore:php8.2-latest \
+          docker.io/pimcore/pimcore:php8.3-latest \
             composer create-project \
               pimcore/skeleton:@dev \
               --repository='{"type": "path", "url": "./skeleton"}' \
@@ -62,6 +63,10 @@ jobs:
         docker compose config -q
 
     - name: Test pimcore installation
+      env:
+        PIMCORE_INSTANCE_IDENTIFIER: ${{ secrets.PIMCORE_CI_INSTANCE_IDENTIFIER }}
+        PIMCORE_ENCRYPTION_SECRET: ${{ secrets.PIMCORE_CI_ENCRYPTION_SECRET }}
+        PIMCORE_PRODUCT_KEY: ${{ secrets.PIMCORE_CI_PRODUCT_KEY }}    
       run: |
         # Echo commands and terminate on first error
         set -ex
@@ -77,12 +82,19 @@ jobs:
 
         # Run pimcore installation.
         docker compose exec -T \
-        -e PIMCORE_INSTALL_ADMIN_USERNAME=pimcore \
-        -e PIMCORE_INSTALL_ADMIN_PASSWORD=pimcore \
-        -- \
-        php vendor/bin/pimcore-install -n
+          -e PIMCORE_INSTALL_ADMIN_USERNAME=pimcore \
+          -e PIMCORE_INSTALL_ADMIN_PASSWORD=pimcore \
+          -e PIMCORE_INSTALL_ENCRYPTION_SECRET=${PIMCORE_ENCRYPTION_SECRET} \
+          -e PIMCORE_INSTALL_INSTANCE_IDENTIFIER=${PIMCORE_INSTANCE_IDENTIFIER} \
+          -e PIMCORE_INSTALL_PRODUCT_KEY=${PIMCORE_PRODUCT_KEY} \
+          -- \
+          php vendor/bin/pimcore-install -n
 
     - name: Run codeception tests
+      env:
+        PIMCORE_INSTANCE_IDENTIFIER: ${{ secrets.PIMCORE_CI_INSTANCE_IDENTIFIER }}
+        PIMCORE_ENCRYPTION_SECRET: ${{ secrets.PIMCORE_CI_ENCRYPTION_SECRET }}
+        PIMCORE_PRODUCT_KEY: ${{ secrets.PIMCORE_CI_PRODUCT_KEY }}        
       run: |
         # Echo commands and terminate on first error
         set -ex
@@ -91,5 +103,11 @@ jobs:
 
         # Set up and execute codeception tests, just like README.md suggests.
         docker compose run --user=root --rm test-php chown -R $(id -u):$(id -g) var/ public/var/
-        docker compose run --rm -T test-php vendor/bin/pimcore-install -n
+        docker compose run --rm -T \
+          -e PIMCORE_INSTALL_ADMIN_USERNAME=pimcore \
+          -e PIMCORE_INSTALL_ADMIN_PASSWORD=pimcore \
+          -e PIMCORE_INSTALL_ENCRYPTION_SECRET=${PIMCORE_ENCRYPTION_SECRET} \
+          -e PIMCORE_INSTALL_INSTANCE_IDENTIFIER=${PIMCORE_INSTANCE_IDENTIFIER} \
+          -e PIMCORE_INSTALL_PRODUCT_KEY=${PIMCORE_PRODUCT_KEY} \
+          test-php vendor/bin/pimcore-install -n
         docker compose run --rm -T test-php vendor/bin/codecept run -vv

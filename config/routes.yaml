@@ -3,4 +3,4 @@ _pimcore:
 
 app:
     resource: "../src/Controller/"
-    type: annotation
+    type: attribute
