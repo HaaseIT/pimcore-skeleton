@@ -22,10 +22,10 @@
     "symfony/amqp-messenger": "^7.4",
     "symfony/dotenv": "^7.4",
     "symfony/runtime": "^7.4",
-    "symfony/webpack-encore-bundle": "^1.15",
-    "symfony/rate-limiter": "^6.2",
+    "symfony/webpack-encore-bundle": "^2.4",
+    "symfony/rate-limiter": "^7.4",
     "nelmio/cors-bundle": "^2.1",
-    "nelmio/security-bundle": "^2.10"
+    "nelmio/security-bundle": "^3.9"
   },
   "require-dev": {
     "codeception/codeception": "^5.3",

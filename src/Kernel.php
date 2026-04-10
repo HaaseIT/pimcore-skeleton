@@ -13,20 +13,7 @@
 namespace App;
 
 use Pimcore\Kernel as PimcoreKernel;
-use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
-use Nelmio\CorsBundle\NelmioCorsBundle;
-use Nelmio\SecurityBundle\NelmioSecurityBundle;
 
 class Kernel extends PimcoreKernel
 {
-    /**
-     * Adds bundles to register to the bundle collection. The collection is able
-     * to handle priorities and environment specific bundles.
-     */
-    public function registerBundlesToCollection(BundleCollection $collection): void
-    {
-        $collection->addBundle(new NelmioCorsBundle());
-        $collection->addBundle(new NelmioSecurityBundle());
-        $collection->addBundle(new WebpackEncoreBundle());
-    }
 }

@@ -7,4 +7,7 @@ return [
     Pimcore\Bundle\StudioBackendBundle\PimcoreStudioBackendBundle::class => ['all' => true],
     Pimcore\Bundle\StudioUiBundle\PimcoreStudioUiBundle::class => ['all' => true],
     Pimcore\Bundle\QuillBundle\PimcoreQuillBundle::class => ['all' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
+    Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];

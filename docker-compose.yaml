@@ -157,3 +157,4 @@ volumes:
     pimcore-test-var:
     pimcore-test-public-var:
 #    elasticsearch:
+    pimcore-demo-opensearch:
