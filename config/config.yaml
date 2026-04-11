@@ -43,10 +43,14 @@ pimcore:
                 type: 'disabled'
         document_types:
             write_target:
-                type: 'disabled'
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/document-types'
         predefined_properties:
             write_target:
-                type: 'settings-store'
+                type: 'symfony-config'
+                options:
+                    directory: '%kernel.project_dir%/var/config/predefined-properties'
         predefined_asset_metadata:
             write_target:
                 type: 'symfony-config'
